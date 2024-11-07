@@ -13,37 +13,37 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Configure Git
-      run: |
-        git config user.name "$GITHUB_ACTOR"
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-        cargo install --path=helm-docs
-        helm-docs readme charts/docker-registry-ui/ -w
-        helm-docs check charts/docker-registry-ui/
+    # - name: Configure Git
+    #   run: |
+    #     git config user.name "$GITHUB_ACTOR"
+    #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    #     cargo install --path=helm-docs
+    #     helm-docs readme charts/docker-registry-ui/ -w
+    #     helm-docs check charts/docker-registry-ui/
 
-    - name: Install Helm
-      uses: azure/setup-helm@v3
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    # - name: Install Helm
+    #   uses: azure/setup-helm@v3
+    #   env:
+    #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.6.0
-      env:
-        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        CR_SKIP_EXISTING: true
+    # - name: Run chart-releaser
+    #   uses: helm/chart-releaser-action@v1.6.0
+    #   env:
+    #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    #     CR_SKIP_EXISTING: true
 
-    - name: Store all Markdowns
-      run: |
-        git checkout main
-        find -name '*.md' > /tmp/markdowns
+    # - name: Store all Markdowns
+    #   run: |
+    #     git checkout main
+    #     find -name '*.md' > /tmp/markdowns
 
-    - name: Commit documentation
-      run: |
-        git fetch origin gh-pages
-        git checkout -B gh-pages origin/gh-pages
-        git checkout main -- $(cat /tmp/markdowns)
-        git add $(cat /tmp/markdowns)
-        if [ -n "$(git diff --name-only --cached)" ]; then
-          git commit -m 'docs: auto update documentation'
-          git push origin gh-pages
-        fi
+    # - name: Commit documentation
+    #   run: |
+    #     git fetch origin gh-pages
+    #     git checkout -B gh-pages origin/gh-pages
+    #     git checkout main -- $(cat /tmp/markdowns)
+    #     git add $(cat /tmp/markdowns)
+    #     if [ -n "$(git diff --name-only --cached)" ]; then
+    #       git commit -m 'docs: auto update documentation'
+    #       git push origin gh-pages
+    #     fi
