@@ -50,7 +50,17 @@ spec:
             {{- end }}
             {{- range .Values.registry.extraEnv }}
             - name: {{ .name | quote }}
+              {{- if .value }}
               value: {{ .value | quote }}
+              {{- end }}
+              {{- if .valueFrom }}
+              valueFrom:
+                {{- if .valueFrom.secretKeyRef }}
+                secretKeyRef:
+                  name: {{ .valueFrom.secretKeyRef.name }}
+                  key: {{ .valueFrom.secretKeyRef.key }}
+                {{- end }}
+              {{- end }}
             {{- end }}
           ports:
             - name: http
