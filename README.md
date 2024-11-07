@@ -5,7 +5,7 @@ Official Helm Chart Repository for Joxit's Applications. The Helm repository is 
 You can add the Helm repository to you environment with this command line. I will name the Helm repository `joxit` in all my charts.
 
 ```
-helm repo add joxit https://helm.joxit.dev
+helm repo add tribusstudio https://tribusstudio.github.io/joxit-helm-charts/
 ```
 
 [`helm-docs`](https://github.com/Joxit/helm-charts/tree/main/helm-docs) is a rust project that generate documentation for helm charts based on `values.yaml` file. It can also validate the app versions before a release.
