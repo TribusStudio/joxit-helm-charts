@@ -108,3 +108,4 @@ spec:
       {{ tpl .Values.registry.additionalSpec . | nindent 6 | trim }}
     {{- end }}
 {{- end }}
+
