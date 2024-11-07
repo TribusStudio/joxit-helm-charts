@@ -22,14 +22,12 @@ jobs:
         helm-docs check charts/docker-registry-ui/
 
     - name: Install Helm
-      uses: azure/setup-helm@v1
-      with:
-        version: v3.6.3
+      uses: azure/setup-helm@v3
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.2.1
-      with:
-        charts_repo_url: https://helm.joxit.dev
+      uses: helm/chart-releaser-action@v1.6.0
       env:
         CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         CR_SKIP_EXISTING: true
